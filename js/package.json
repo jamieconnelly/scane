@@ -24,12 +24,13 @@
     "typescript": "^3.5.2",
     "webpack": "^4.35.0",
     "webpack-cli": "^3.3.4",
-    "webpack-dev-server": "^3.7.2"
+    "webpack-dev-server": "^3.7.2",
+    "webpack-merge": "^4.2.1"
   },
   "scripts": {
     "watch": "webpack --watch",
-    "start": "webpack-dev-server --mode development --hot",
-    "build": "webpack"
+    "start": "webpack-dev-server --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
   },
   "browserslist": {
     "production": [

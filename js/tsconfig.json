@@ -3,7 +3,7 @@
     "allowSyntheticDefaultImports": true,
     "outDir": "../src/scane/dj/static/build",
     "sourceMap": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "esModuleInterop": true,
     "module": "commonjs",
     "target": "es6",

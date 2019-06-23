@@ -17,10 +17,17 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.shortcuts import render
 from django.urls import path
+from graphene_django.views import GraphQLView
+
+from scane.graphql.schema import schema
 
 
 def index(request):
     return render(request, 'index.html')
 
 
-urlpatterns = [path('admin/', admin.site.urls), url(r'^.*', index)]
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    url(r'^graphql$', GraphQLView.as_view(graphiql=True, schema=schema)),
+    url(r'^.*', index),
+]

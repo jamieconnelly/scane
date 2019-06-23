@@ -2,7 +2,7 @@ src/db.sqlite3
 /js/node_modules
 
 # production
-/src/scane/build
+/src/scane/dj/static/build
 
 # misc
 .DS_Store

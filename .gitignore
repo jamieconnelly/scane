@@ -1,0 +1,8 @@
+src/db.sqlite3
+/js/node_modules
+
+# production
+/src/scane/build
+
+# misc
+.DS_Store

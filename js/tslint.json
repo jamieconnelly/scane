@@ -1,0 +1,26 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-config-standard",
+    "tslint-react",
+    "tslint-config-prettier",
+    "tslint-plugin-prettier"
+  ],
+  "rulesDirectory": ["node_modules/tslint-origin-ordered-imports-rule/dist"],
+  "rules": {
+    "member-ordering": false,
+    "no-restricted-globals": [true],
+    "no-unused-variable": true,
+    "only-arrow-functions": false,
+    "jsx-boolean-value": [true, "never"],
+    "prettier": [true, ".prettierrc.js"],
+    "import-blacklist": [true, "lodash"],
+    "origin-ordered-imports": [true, "one-blank-line", ["lib", "^(__generated__|actions|assets|components|entities|models|mutations|pages|reducers|relay|routes|types|utils)\/"]]
+  },
+  "linterOptions": {
+    "exclude": [
+      "node_modules",
+      "**/*.{js,jsx}"
+    ]
+  }
+}

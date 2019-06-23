@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const jsRootDir = path.resolve(__dirname) // You are here
 const repoRootDir = path.resolve(jsRootDir, '../')
@@ -20,6 +21,10 @@ const getPlugins = () => {
     new MiniCssExtractPlugin({
       filename: isDevelopment ? '[name].css' : '[name].[hash].css',
       chunkFilename: isDevelopment ? '[id].css' : '[id].[hash].css',
+    }),
+    new HtmlWebpackPlugin({
+      template: './index.html',
+      filename: `${isDevelopment ? buildDir : templateDir}/index.html`,
     }),
   ]
 }

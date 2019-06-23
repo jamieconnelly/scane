@@ -25,6 +25,7 @@
     "webpack-cli": "^3.3.4"
   },
   "scripts": {
+    "build": "webpack"
   },
   "browserslist": {
     "production": [

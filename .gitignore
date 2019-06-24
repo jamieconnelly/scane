@@ -1,5 +1,5 @@
 src/db.sqlite3
-/js/node_modules
+node_modules/
 
 # production
 /src/scane/dj/static/build

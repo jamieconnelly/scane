@@ -69,5 +69,18 @@ module.exports = merge(common, {
     inline: true,
     port: 3001,
     contentBase: 'src',
+    historyApiFallback: true,
+    disableHostCheck: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+    proxy: [
+      {
+        context: ['/graphql'],
+        target: 'http://localhost:8000',
+        secure: false,
+        changeOrigin: false,
+      },
+    ],
   },
 })

@@ -1,23 +1,29 @@
 import React from 'react'
-import './App'
+import { graphql, QueryRenderer } from 'react-relay'
 
-function App() {
+import { AppQuery } from './__generated__/AppQuery.graphql'
+import environment from './environment'
+
+const App = () => {
   return (
-    <div>
-      <header>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <QueryRenderer
+      environment={environment}
+      query={graphql`
+        query AppQuery {
+          me
+        }
+      `}
+      variables={{}}
+      render={({ error, props }: any) => {
+        if (error) {
+          return <div>Error!</div>
+        }
+        if (!props) {
+          return <div>Loading...</div>
+        }
+        return <div>ME: {props.me}</div>
+      }}
+    />
   )
 }
 

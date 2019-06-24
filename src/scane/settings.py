@@ -15,6 +15,8 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WEBPACK_OUTPUT_DIR = os.path.join(BASE_DIR, 'dj/static/build')
+SRC_DIR = os.path.dirname(BASE_DIR)
+JS_DIR = os.path.join(SRC_DIR, 'js')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -38,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'graphene_django',
     'scane.dj',
+    'scane.graphql',
 ]
 
 MIDDLEWARE = [

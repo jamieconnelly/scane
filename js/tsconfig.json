@@ -1,13 +1,17 @@
 {
   "compilerOptions": {
+    "target": "es2015",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "checkJs": false,
     "allowSyntheticDefaultImports": true,
     "outDir": "../src/scane/dj/static/build",
     "sourceMap": true,
     "noImplicitAny": false,
     "esModuleInterop": true,
-    "module": "commonjs",
-    "target": "es6",
-    "jsx": "react"
+    "jsx": "preserve"
   },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules"]
 }

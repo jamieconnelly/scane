@@ -1,6 +1,13 @@
-import { Environment, Network, RecordSource, Store } from 'relay-runtime'
+import {
+  Environment,
+  Network,
+  RecordSource,
+  Store,
+  RequestParameters,
+  Variables,
+} from 'relay-runtime'
 
-const fetchQuery = async (operation, variables) => {
+const fetchQuery = async (operation: RequestParameters, variables: Variables) => {
   const res = await fetch('/graphql', {
     method: 'POST',
     headers: {

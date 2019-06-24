@@ -1,30 +1,26 @@
 import React from 'react'
-import { graphql, QueryRenderer } from 'react-relay'
+import { graphql } from 'react-relay'
+
+import withQueryRenderer, { OuterProps } from './relay/withQueryRenderer'
 
 import { AppQuery } from './__generated__/AppQuery.graphql'
-import environment from './environment'
 
-const App = () => {
-  return (
-    <QueryRenderer
-      environment={environment}
-      query={graphql`
-        query AppQuery {
-          me
-        }
-      `}
-      variables={{}}
-      render={({ error, props }: any) => {
-        if (error) {
-          return <div>Error!</div>
-        }
-        if (!props) {
-          return <div>Loading...</div>
-        }
-        return <div>ME: {props.me}</div>
-      }}
-    />
-  )
+interface IProps extends OuterProps<AppQuery, {}> {}
+
+const App = (props: IProps) => {
+  if (props.relayLoading) {
+    return <div>Loading</div>
+  } else if (props.error) {
+    return <div>Error</div>
+  } else {
+    return <div>{props.me}</div>
+  }
 }
 
-export default App
+export default withQueryRenderer<AppQuery>({
+  query: graphql`
+    query AppQuery {
+      me
+    }
+  `,
+})(App)

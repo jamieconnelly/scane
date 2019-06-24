@@ -5,12 +5,14 @@
     "moduleResolution": "node",
     "allowJs": true,
     "checkJs": false,
-    "allowSyntheticDefaultImports": true,
-    "outDir": "../src/scane/dj/static/build",
+    "jsx": "preserve",
     "sourceMap": true,
-    "noImplicitAny": false,
-    "esModuleInterop": true,
-    "jsx": "preserve"
+    "strict": true,
+    "baseUrl": ".",
+    "outDir": "../src/scane/dj/static/build",
+    "allowSyntheticDefaultImports": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
   "include": ["./src/**/*"],
   "exclude": ["node_modules"]

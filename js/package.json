@@ -11,8 +11,10 @@
     "@types/react-relay": "^5.0.0",
     "@types/relay-runtime": "^5.0.0",
     "babel-loader": "^8.0.6",
+    "final-form": "^4.16.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-final-form": "^6.3.0",
     "react-relay": "^5.0.0",
     "ts-loader": "^6.0.4"
   },

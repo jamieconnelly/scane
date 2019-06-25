@@ -1,5 +1,21 @@
 schema {
   query: Query
+  mutation: Mutation
+}
+
+input LoginMutationInput {
+  username: String!
+  password: String!
+  clientMutationId: String
+}
+
+type LoginMutationPayload {
+  user: User
+  clientMutationId: String
+}
+
+type Mutation {
+  userLogin(input: LoginMutationInput!): LoginMutationPayload
 }
 
 interface Node {
@@ -8,5 +24,12 @@ interface Node {
 
 type Query {
   node(id: ID!): Node
-  me: String
+  me: User
+  isLoggedIn: Boolean
+}
+
+type User {
+  username: String!
+  firstName: String!
+  lastName: String!
 }

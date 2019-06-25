@@ -1,13 +1,51 @@
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User as UserModel
 import graphene
 from graphene.relay import Node
+from graphene_django.types import DjangoObjectType
+from graphql import GraphQLError
+
+
+class User(DjangoObjectType):
+    class Meta:
+        model = UserModel
+        only_fields = ('username', 'first_name', 'last_name')
 
 
 class Query(graphene.ObjectType):
     node = Node.Field()  # required by Relay spec
-    me = graphene.String()
+    me = graphene.Field(User)
+    is_logged_in = graphene.Boolean()
 
     def resolve_me(self, info, **kwargs):
-        return 'hello world'
+        return info.context.user
+
+    def resolve_is_logged_in(self, info, **kwargs):
+        return info.context.user.is_authenticated
 
 
-schema = graphene.Schema(query=Query)
+class LoginMutation(graphene.relay.ClientIDMutation):
+    class Input:
+        username = graphene.String(required=True)
+        password = graphene.String(required=True)
+
+    user = graphene.Field(User)
+
+    @classmethod
+    def mutate_and_get_payload(cls, root, info, **input):
+        user = authenticate(
+            info.context, username=input['username'], password=input['password']
+        )
+
+        if user is None:
+            raise GraphQLError('Either the username or password is wrong')
+
+        login(info.context, user)
+        return cls(user=user)
+
+
+class Mutation(graphene.ObjectType):
+    user_login = LoginMutation.Field()
+
+
+schema = graphene.Schema(query=Query, mutation=Mutation)

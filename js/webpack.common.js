@@ -5,7 +5,7 @@ const config = require('./config')
 module.exports = {
   entry: `${config.jsRootDir}/src/index.tsx`,
   output: {
-    filename: 'bundle.js',
+    filename: '[name].[hash].js',
     path: config.buildDir,
   },
   devtool: 'source-map',

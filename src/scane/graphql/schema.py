@@ -22,7 +22,10 @@ class Query(graphene.ObjectType):
     me = graphene.Field(User)
 
     def resolve_me(self, info, **kwargs):
-        return info.context.user
+        if info.context.user.is_authenticated:
+            return info.context.user
+        else:
+            return None
 
 
 class LoginMutation(graphene.relay.ClientIDMutation):

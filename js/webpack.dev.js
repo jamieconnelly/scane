@@ -64,6 +64,7 @@ module.exports = merge(common, {
   module: {
     rules: common.module.rules.concat(getRules()),
   },
+  devtool: 'cheap-module-eval-source-map',
   devServer: {
     hot: true,
     inline: true,

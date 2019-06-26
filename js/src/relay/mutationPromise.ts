@@ -9,7 +9,7 @@ function mutationPromise<T extends OperationType>(mutationParams: MutationConfig
       ...mutationParams,
       onCompleted: (response, errors) => {
         if (errors) {
-          reject(errors)
+          reject({ message: errors.map(({ message }) => message).join(', ') })
         }
         resolve(response)
       },

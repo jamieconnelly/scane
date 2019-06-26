@@ -13,11 +13,7 @@ const LoginForm = () => {
       const name = userLogin && userLogin.user && userLogin.user.firstName
       setUserOrError(`Hello ${name} 👋🏻`)
     } catch (e) {
-      if (e instanceof Array) {
-        setUserOrError(e.map(({ message }) => message).join(', '))
-      } else {
-        setUserOrError(e.message)
-      }
+      setUserOrError(e.message)
     }
   }
 

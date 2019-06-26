@@ -8,7 +8,10 @@
     "jsx": "preserve",
     "sourceMap": true,
     "strict": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
+    "paths": {
+      "scane/*": ["*"]
+    },
     "outDir": "../src/scane/dj/static/build",
     "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,

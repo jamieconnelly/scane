@@ -3,10 +3,10 @@ import { graphql } from 'react-relay'
 import { RouteProps } from 'react-router'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
-import withQueryRenderer, { OuterProps } from './relay/withQueryRenderer'
+import withQueryRenderer, { OuterProps } from 'scane/relay/withQueryRenderer'
 
-import { AppQuery } from './__generated__/AppQuery.graphql'
-import LoginForm from './LoginForm'
+import { AppQuery } from 'scane/__generated__/AppQuery.graphql'
+import LoginForm from 'scane/LoginForm'
 
 interface IProps extends OuterProps<AppQuery, {}> {}
 

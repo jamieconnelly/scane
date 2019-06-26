@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Form, Field } from 'react-final-form'
 
-import { LoginMutationInput } from './__generated__/mutationsLoginMutation.graphql'
-import login from './mutations'
+import { LoginMutationInput } from '__generated__/mutationsLoginMutation.graphql'
+import login from 'scane/mutations'
 
 const LoginForm = () => {
   const [error, setError] = useState()

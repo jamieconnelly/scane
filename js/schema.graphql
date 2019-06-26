@@ -10,7 +10,7 @@ input LoginMutationInput {
 }
 
 type LoginMutationPayload {
-  user: User
+  me: User
   clientMutationId: String
 }
 
@@ -25,11 +25,11 @@ interface Node {
 type Query {
   node(id: ID!): Node
   me: User
-  isLoggedIn: Boolean
 }
 
 type User {
   username: String!
   firstName: String!
   lastName: String!
+  isLoggedIn: Boolean!
 }

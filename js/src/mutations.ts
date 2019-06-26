@@ -11,9 +11,7 @@ const login = (input: LoginMutationInput) =>
     mutation: graphql`
       mutation mutationsLoginMutation($input: LoginMutationInput!) {
         userLogin(input: $input) {
-          user {
-            firstName
-          }
+          clientMutationId
         }
       }
     `,

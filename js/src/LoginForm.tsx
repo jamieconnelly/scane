@@ -5,15 +5,14 @@ import { LoginMutationInput } from './__generated__/mutationsLoginMutation.graph
 import login from './mutations'
 
 const LoginForm = () => {
-  const [userOrError, setUserOrError] = useState()
+  const [error, setError] = useState()
 
   const onSubmit = async (values: LoginMutationInput) => {
     try {
-      const { userLogin } = await login(values)
-      const name = userLogin && userLogin.user && userLogin.user.firstName
-      setUserOrError(`Hello ${name} 👋🏻`)
+      await login(values)
+      window.location.href = '/'
     } catch (e) {
-      setUserOrError(e.message)
+      setError(e.message)
     }
   }
 
@@ -39,7 +38,7 @@ const LoginForm = () => {
           </form>
         )}
       />
-      {userOrError}
+      {error}
     </>
   )
 }

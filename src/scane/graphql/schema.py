@@ -7,6 +7,11 @@ from graphql import GraphQLError
 
 
 class User(DjangoObjectType):
+    is_logged_in = graphene.Boolean(required=True)
+
+    def resolve_is_logged_in(self, info, **kwargs):
+        return info.context.user.is_authenticated
+
     class Meta:
         model = UserModel
         only_fields = ('username', 'first_name', 'last_name')
@@ -15,13 +20,9 @@ class User(DjangoObjectType):
 class Query(graphene.ObjectType):
     node = Node.Field()  # required by Relay spec
     me = graphene.Field(User)
-    is_logged_in = graphene.Boolean()
 
     def resolve_me(self, info, **kwargs):
         return info.context.user
-
-    def resolve_is_logged_in(self, info, **kwargs):
-        return info.context.user.is_authenticated
 
 
 class LoginMutation(graphene.relay.ClientIDMutation):
@@ -29,7 +30,7 @@ class LoginMutation(graphene.relay.ClientIDMutation):
         username = graphene.String(required=True)
         password = graphene.String(required=True)
 
-    user = graphene.Field(User)
+    me = graphene.Field(User)
 
     @classmethod
     def mutate_and_get_payload(cls, root, info, **input):
@@ -41,7 +42,7 @@ class LoginMutation(graphene.relay.ClientIDMutation):
             raise GraphQLError('Either the username or password is wrong')
 
         login(info.context, user)
-        return cls(user=user)
+        return cls(me=user)
 
 
 class Mutation(graphene.ObjectType):

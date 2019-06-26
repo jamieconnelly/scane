@@ -32,7 +32,6 @@
     "relay-compiler": "^5.0.0",
     "relay-compiler-language-typescript": "^4.3.0",
     "sass-loader": "^7.1.0",
-    "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.0.1",

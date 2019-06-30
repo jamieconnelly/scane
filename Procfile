@@ -1,0 +1,1 @@
+web: gunicorn scane.wsgi --log-file - --chdir ./src

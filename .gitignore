@@ -1,5 +1,6 @@
 src/db.sqlite3
 node_modules/
+**/static/
 __generated__/
 
 # production

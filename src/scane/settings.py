@@ -14,9 +14,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-WEBPACK_OUTPUT_DIR = os.path.join(BASE_DIR, 'dj/static/build')
-SRC_DIR = os.path.dirname(BASE_DIR)
-JS_DIR = os.path.join(SRC_DIR, 'js')
+WEBPACK_OUTPUT_DIR = os.path.join(BASE_DIR, 'scane/dj/static/build')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -119,5 +117,6 @@ ALLOWED_HOSTS = ['scane.herokuapp.com']
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'scane/static')
+STATICFILES_DIRS = (WEBPACK_OUTPUT_DIR,)

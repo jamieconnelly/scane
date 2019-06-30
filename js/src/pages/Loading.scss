@@ -1,5 +1,4 @@
 @import '~scane/styles/variables';
-@import '~scane/styles/mixins';
 
 .loading {
   display: flex;
@@ -13,6 +12,8 @@
   left: 0;
   justify-content: center;
   overflow: hidden;
+  font-weight: 500;
+  font-size: 20px;
 
   div {
     display: inline-block;

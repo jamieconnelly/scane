@@ -1,12 +1,15 @@
 const config = require('./config')
 const common = require('./webpack.common.js')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const TerserJSPlugin = require('terser-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const merge = require('webpack-merge')
 const path = require('path')
 
-const getPlugins = () => {
-  return [
+module.exports = merge(common, {
+  mode: 'production',
+  plugins: [
     new MiniCssExtractPlugin({
       filename: '[name].[hash].css',
       chunkFilename: '[id].[hash].css',
@@ -15,46 +18,18 @@ const getPlugins = () => {
       template: './index.html',
       filename: `${config.templateDir}/index.html`,
     }),
-  ]
-}
-
-const getRules = () => {
-  return [
-    {
-      test: /\.module\.s(a|c)ss$/,
-      loader: [
-        MiniCssExtractPlugin.loader,
-        {
-          loader: 'css-loader',
-          options: {
-            modules: true,
-            localIdentName: '[name]__[local]___[hash:base64:5]',
-            camelCase: true,
-          },
+  ],
+  optimization: {
+    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
         },
-        {
-          loader: 'sass-loader',
-        },
-      ],
+        chunks: 'all',
+      },
     },
-    {
-      test: /\.s(a|c)ss$/,
-      exclude: /\.module.(s(a|c)ss)$/,
-      loader: [
-        MiniCssExtractPlugin.loader,
-        'css-loader',
-        {
-          loader: 'sass-loader',
-        },
-      ],
-    },
-  ]
-}
-
-module.exports = merge(common, {
-  plugins: getPlugins(),
-  mode: 'production',
-  module: {
-    rules: common.module.rules.concat(getRules()),
   },
 })

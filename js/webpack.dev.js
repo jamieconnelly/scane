@@ -5,8 +5,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const merge = require('webpack-merge')
 const path = require('path')
 
-const getPlugins = () => {
-  return [
+module.exports = merge(common, {
+  mode: 'development',
+  plugins: [
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css',
@@ -15,12 +16,7 @@ const getPlugins = () => {
       template: './index.html',
       filename: `${config.buildDir}/index.html`,
     }),
-  ]
-}
-
-module.exports = merge(common, {
-  mode: 'development',
-  plugins: getPlugins(),
+  ],
   devtool: 'cheap-module-eval-source-map',
   devServer: {
     hot: true,

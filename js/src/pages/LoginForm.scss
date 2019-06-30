@@ -1,7 +1,19 @@
 @import '~scane/styles/variables';
 @import '~scane/styles/mixins';
 
+@keyframes slide-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .container {
+  animation: slide-in 0.5s ease;
   background-color: $color-white;
   display: flex;
   align-items: center;

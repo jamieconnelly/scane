@@ -3,17 +3,17 @@ import { graphql } from 'react-relay'
 import { RouteProps } from 'react-router'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
-import withQueryRenderer, { OuterProps } from 'scane/relay/withQueryRenderer'
-
 import { AppQuery } from 'scane/__generated__/AppQuery.graphql'
+import Error from 'scane/pages/Error'
+import Home from 'scane/pages/Home'
 import LoginForm from 'scane/pages/LoginForm'
+import LoadingPage from 'scane/pages/Loading'
+import NotFound from 'scane/pages/NotFound'
+import withQueryRenderer, { OuterProps } from 'scane/relay/withQueryRenderer'
 
 import './styles/styles.scss'
 
 interface IProps extends OuterProps<AppQuery, {}> {}
-
-const Home = () => <div>Home</div>
-const NotFound = () => <div>404</div>
 
 interface IRouteProps extends RouteProps {
   isLoggedIn: boolean
@@ -27,9 +27,9 @@ const LoginRoute = ({ isLoggedIn, ...props }: IRouteProps) =>
 
 const App = (props: IProps) => {
   if (props.relayLoading) {
-    return <div>Loading</div>
+    return <LoadingPage />
   } else if (props.error) {
-    return <div>Error</div>
+    return <Error />
   }
   const isLoggedIn = !!(props.me && props.me.isLoggedIn)
   return (

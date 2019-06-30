@@ -1,0 +1,83 @@
+@import '~scane/styles/variables';
+@import '~scane/styles/mixins';
+
+.loading {
+  display: flex;
+  animation: showup 5s infinite;
+  align-items: center;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  justify-content: center;
+  overflow: hidden;
+
+  div {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  div:last-of-type {
+    width: 0px;
+    animation: reveal 5s infinite;
+  }
+
+  div:last-of-type span {
+    margin-left: -5px;
+    animation: slidein 5s infinite;
+  }
+
+  @keyframes showup {
+    0% {
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes slidein {
+    0% {
+      margin-left: -20px;
+    }
+    20% {
+      margin-left: -20px;
+    }
+    35% {
+      margin-left: 0px;
+    }
+    100% {
+      margin-left: 0px;
+    }
+  }
+
+  @keyframes reveal {
+    0% {
+      opacity: 0;
+      width: 0px;
+    }
+    20% {
+      opacity: 1;
+      width: 0px;
+    }
+    30% {
+      width: 20px;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      width: 20px;
+    }
+  }
+}

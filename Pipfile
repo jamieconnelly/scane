@@ -11,6 +11,7 @@ black = "==18.9b0"
 graphene-django = "*"
 django-extensions = "*"
 gunicorn = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.7"

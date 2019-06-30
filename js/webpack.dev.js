@@ -18,52 +18,9 @@ const getPlugins = () => {
   ]
 }
 
-const getRules = () => {
-  return [
-    {
-      test: /\.module\.s(a|c)ss$/,
-      loader: [
-        'style-loader',
-        {
-          loader: 'css-loader',
-          options: {
-            modules: true,
-            localIdentName: '[name]__[local]___[hash:base64:5]',
-            camelCase: true,
-            sourceMap: true,
-          },
-        },
-        {
-          loader: 'sass-loader',
-          options: {
-            sourceMap: true,
-          },
-        },
-      ],
-    },
-    {
-      test: /\.s(a|c)ss$/,
-      exclude: /\.module.(s(a|c)ss)$/,
-      loader: [
-        'style-loader',
-        'css-loader',
-        {
-          loader: 'sass-loader',
-          options: {
-            sourceMap: true,
-          },
-        },
-      ],
-    },
-  ]
-}
-
 module.exports = merge(common, {
   mode: 'development',
   plugins: getPlugins(),
-  module: {
-    rules: common.module.rules.concat(getRules()),
-  },
   devtool: 'cheap-module-eval-source-map',
   devServer: {
     hot: true,

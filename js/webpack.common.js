@@ -1,6 +1,36 @@
+const autoprefixer = require('autoprefixer')
 const path = require('path')
-
 const config = require('./config')
+
+const getSCSSLoaders = (options = { useCSSModules: false }) => {
+  const loaders = [
+    {
+      loader: 'css-loader',
+      options: {
+        importLoaders: 2,
+        url: true,
+        ...(options.useCSSModules
+          ? {
+              modules: {
+                localIdentName: '[name]__[local]___[hash:base64:5]',
+              },
+            }
+          : {}),
+      },
+    },
+    {
+      loader: 'postcss-loader',
+      options: {
+        plugins: () => [autoprefixer],
+      },
+    },
+    {
+      loader: 'sass-loader',
+    },
+  ]
+  loaders.unshift({ loader: 'style-loader' })
+  return loaders
+}
 
 module.exports = {
   entry: `${config.jsRootDir}/src/index.tsx`,
@@ -37,12 +67,21 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /pages\/.*\.scss$/,
+        use: getSCSSLoaders({ useCSSModules: true }),
+      },
+      {
+        test: /(styles\/styles.scss)$/,
+        use: getSCSSLoaders(),
+      },
     ],
   },
   resolve: {
     alias: {
       scane: path.resolve(__dirname, 'src/'),
     },
-    extensions: ['.tsx', '.ts', '.js', '.scss'],
+    modules: [config.jsRootDir, path.join(config.jsRootDir, 'node_modules')],
+    extensions: ['.tsx', '.ts', '.js'],
   },
 }

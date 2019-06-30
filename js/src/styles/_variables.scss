@@ -1,0 +1,134 @@
+/* ––––––––––––––––– */
+/*      colors       */
+/* ––––––––––––––––– */
+
+// Grey palette
+$color-grey-primary: #5d5c61;
+
+$color-grey-10: mix(white, $color-grey-primary, 95%);
+$color-grey-50: mix(white, $color-grey-primary, 90%);
+$color-grey-100: mix(white, $color-grey-primary, 80%);
+$color-grey-200: mix(white, $color-grey-primary, 60%);
+$color-grey-300: mix(white, $color-grey-primary, 40%);
+$color-grey-400: mix(white, $color-grey-primary, 20%);
+$color-grey-500: $color-grey-primary;
+$color-grey-600: mix(black, $color-grey-primary, 20%);
+$color-grey-700: mix(black, $color-grey-primary, 40%);
+$color-grey-800: mix(black, $color-grey-primary, 60%);
+$color-grey-900: mix(black, $color-grey-primary, 80%);
+
+// Blue palette
+$color-blue-primary: #557a95;
+
+$color-blue-10: mix(white, $color-blue-primary, 95%);
+$color-blue-50: mix(white, $color-blue-primary, 90%);
+$color-blue-100: mix(white, $color-blue-primary, 80%);
+$color-blue-200: mix(white, $color-blue-primary, 60%);
+$color-blue-300: mix(white, $color-blue-primary, 40%);
+$color-blue-400: mix(white, $color-blue-primary, 20%);
+$color-blue-500: $color-blue-primary;
+$color-blue-600: mix(black, $color-blue-primary, 20%);
+$color-blue-700: mix(black, $color-blue-primary, 40%);
+$color-blue-800: mix(black, $color-blue-primary, 60%);
+$color-blue-900: mix(black, $color-blue-primary, 80%);
+
+// Biege palette
+$color-biege-primary: #b1a296;
+
+$color-biege-10: mix(white, $color-biege-primary, 95%);
+$color-biege-50: mix(white, $color-biege-primary, 90%);
+$color-biege-100: mix(white, $color-biege-primary, 80%);
+$color-biege-200: mix(white, $color-biege-primary, 60%);
+$color-biege-300: mix(white, $color-biege-primary, 40%);
+$color-biege-400: mix(white, $color-biege-primary, 20%);
+$color-biege-500: $color-biege-primary;
+$color-biege-600: mix(black, $color-biege-primary, 20%);
+$color-biege-700: mix(black, $color-biege-primary, 40%);
+$color-biege-800: mix(black, $color-biege-primary, 60%);
+$color-biege-900: mix(black, $color-biege-primary, 80%);
+
+// Color references
+$color-text-dark: $color-grey-primary;
+$color-white: #fff;
+$background-color: $color-grey-50;
+$border-color: $color-grey-100;
+
+/* ––––––––––––––––– */
+/*     Box-shadows   */
+/* ––––––––––––––––– */
+
+// BLACKS
+$bs-weak: 0 1px 2px 0 rgba(0, 0, 0, 0.16);
+$bs-medium: 0 1px 2px 0 rgba(0, 0, 0, 0.16);
+$bs-strong: 0 2px 4px 0 rgba(0, 0, 0, 0.24);
+$bs-heavy: 0 4px 16px 0 rgba(0, 0, 0, 0.24);
+
+$button-shadow: 0px 1px 4px rgba(0, 0, 0, 0.04);
+
+/* ––––––––––––––––– */
+/*   8 Point Scale   */
+/* ––––––––––––––––– */
+$scale: 0.5rem; // 8px
+
+$s2: $scale/4; // 2px
+$s4: $scale/2; // 4px
+$s8: $scale; // 8px
+$s10: $scale * 1.25; // 10px
+$s12: $scale * 1.5; // 12px
+$s14: $scale * 1.75; // 14px
+$s16: $scale * 2; // 16px
+$s18: $scale * 2.25; // 18px
+$s20: $scale * 2.5; // 20px
+$s24: $scale * 3; // 24px
+$s32: $scale * 4; // 32px
+$s36: $scale * 4.5; // 36px
+$s40: $scale * 5; // 40px
+$s48: $scale * 6; // 48px
+$s56: $scale * 7; // 56px
+$s60: $scale * 7.5; // 60px
+$s64: $scale * 8; // 64px
+$s72: $scale * 9; // 72px
+$s80: $scale * 10; // 80px
+$s84: $scale * 10; // 84px
+$s88: $scale * 11; // 88px
+$s96: $scale * 12; // 96px
+$s104: $scale * 13; // 104px
+$s112: $scale * 14; // 112px
+$s120: $scale * 15; // 120px
+$s128: $scale * 16; // 128px
+$s136: $scale * 17; // 136px
+$s144: $scale * 18; // 144px
+$s152: $scale * 19; // 152px
+$s160: $scale * 20; // 160px
+$s168: $scale * 21; // 168px
+
+/* ––––––––––––––––– */
+/* Typographic Scale */
+/* ––––––––––––––––– */
+$fs-xxs: $s10; // 10px
+$fs-xs: $s12; // 12px
+$fs-s: $s14; // 14px
+$fs-m: $s16; // 16px
+$fs-l: $s24; // 24px
+$fs-xl: $s32; // 32px
+$fs-xxl: $s40; // 40px
+
+/* ––––––––––––––––– */
+/*   Border Radius   */
+/* ––––––––––––––––– */
+$br-sm: $s2;
+$br-md: $s4;
+
+/* ––––––––––––––––– */
+/*    Transistions   */
+/* ––––––––––––––––– */
+$transition-fast: all 0.05s ease-in-out;
+$transition-normal: all 0.1s ease-in-out;
+$transition-slow: all 0.25s ease-in-out;
+
+/* ––––––––––––––– */
+/*    Font Stack   */
+/* ––––––––––––––– */
+$font-stack: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Roboto', 'Open Sans',
+  sans-serif;
+$font-serif: 'Blanco', Georgia, serif;

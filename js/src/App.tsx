@@ -6,7 +6,9 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import withQueryRenderer, { OuterProps } from 'scane/relay/withQueryRenderer'
 
 import { AppQuery } from 'scane/__generated__/AppQuery.graphql'
-import LoginForm from 'scane/LoginForm'
+import LoginForm from 'scane/pages/LoginForm'
+
+import './styles/styles.scss'
 
 interface IProps extends OuterProps<AppQuery, {}> {}
 

@@ -1,0 +1,66 @@
+@import '~scane/styles/variables';
+@import '~scane/styles/mixins';
+
+.container {
+  background-color: $color-white;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-width: 450px;
+  max-height: 350px;
+  padding: $s56;
+  border-radius: $s12;
+  text-align: center;
+  @include box-shadow-border($border-color);
+}
+
+.loginForm {
+  width: 100%;
+
+  h3 {
+    margin-bottom: $s24;
+  }
+
+  button {
+    width: 100%;
+    border: 1px solid $border-color;
+    box-shadow: $button-shadow;
+    border-radius: $s4;
+    padding: $s8;
+    line-height: 1.5;
+    font-size: $fs-s;
+    background-color: $color-blue-primary;
+    color: $color-white;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $color-blue-400;
+    }
+  }
+
+  input {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: $fs-s;
+    padding: $s8;
+    line-height: 1.5;
+    border: 1px solid $border-color;
+    border-radius: $s4;
+    margin-bottom: $s16;
+  }
+
+  .error {
+    background-color: #d64242;
+    border: 1px solid $border-color;
+    border-radius: $s4;
+    padding: $s8;
+    color: $color-white;
+    margin-top: $s16;
+    font-size: $fs-s;
+  }
+}

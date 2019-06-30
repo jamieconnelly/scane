@@ -1,0 +1,8 @@
+{
+  "engine": {
+    "node": "11.10.1"
+  },
+  "scripts": {
+    "postinstall": "cd js && npm i && npm run relay && npm run build"
+  }
+}

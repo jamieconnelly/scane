@@ -112,6 +112,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+ALLOWED_HOSTS = ['scane.herokuapp.com']
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/

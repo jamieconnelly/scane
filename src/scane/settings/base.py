@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
-import dj_database_url
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WEBPACK_OUTPUT_DIR = os.path.join(BASE_DIR, 'scane/dj/static/build')
@@ -22,12 +20,9 @@ WEBPACK_OUTPUT_DIR = os.path.join(BASE_DIR, 'scane/dj/static/build')
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'brgd5t@)8g45q-w3v71m%tsb6-!+se_ofmc^8rs$tbdns9v$y_'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+SECRET_KEY = os.getenv(
+    'SECRET_KEY', 'brgd5t@)8g45q-w3v71m%tsb6-!+se_ofmc^8rs$tbdns9v$y_'
+)
 
 # Application definition
 
@@ -76,13 +71,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'scane.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-DATABASES = {}
-DATABASES['default'] = dj_database_url.parse(os.getenv('DATABASE_URL'))
-
-
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -108,8 +96,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-ALLOWED_HOSTS = ['scane.herokuapp.com']
 
 
 # Static files (CSS, JavaScript, Images)

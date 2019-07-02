@@ -4,6 +4,7 @@ import { RouteProps } from 'react-router'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
 import { AppQuery } from 'scane/__generated__/AppQuery.graphql'
+import Header from 'scane/components/Header'
 import Error from 'scane/pages/Error'
 import Home from 'scane/pages/Home'
 import LoginForm from 'scane/pages/LoginForm'
@@ -19,8 +20,15 @@ interface IRouteProps extends RouteProps {
   isLoggedIn: boolean
 }
 
-const PrivateRoute = ({ isLoggedIn, ...props }: IRouteProps) =>
-  isLoggedIn ? <Route {...props} /> : <Redirect to="/login" />
+const PrivateRoute = ({ isLoggedIn, me, ...props }: IRouteProps) =>
+  isLoggedIn ? (
+    <>
+      <Header me={me} />
+      <Route {...props} />
+    </>
+  ) : (
+    <Redirect to="/login" />
+  )
 
 const LoginRoute = ({ isLoggedIn, ...props }: IRouteProps) =>
   isLoggedIn ? <Redirect to="/" /> : <Route {...props} />
@@ -35,7 +43,13 @@ const App = (props: IProps) => {
   return (
     <Router>
       <Switch>
-        <PrivateRoute isLoggedIn={isLoggedIn} exact path="/" component={Home} />
+        <PrivateRoute
+          me={props.me}
+          isLoggedIn={isLoggedIn}
+          exact
+          path="/"
+          component={Home}
+        />
         <LoginRoute isLoggedIn={isLoggedIn} path="/login" component={LoginForm} />
         <Route component={NotFound} />
       </Switch>
@@ -48,6 +62,7 @@ export default withQueryRenderer<AppQuery>({
     query AppQuery {
       me {
         isLoggedIn
+        ...Header_me
       }
     }
   `,

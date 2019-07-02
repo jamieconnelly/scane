@@ -1,0 +1,26 @@
+@import '~scane/styles/variables';
+@import '~scane/styles/mixins';
+
+.header {
+  background: $color-white;
+  height: $header-height;
+  padding: $s24;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 -1px 0 0 $border-color;
+}
+
+.initials {
+  margin-left: auto;
+  border-radius: 50%;
+  background: $color-biege-400;
+  width: $s36;
+  height: $s36;
+  text-align: center;
+  line-height: 2.2rem;
+
+  &:hover {
+    cursor: pointer;
+    background: $color-biege-primary;
+  }
+}

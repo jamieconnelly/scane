@@ -68,7 +68,7 @@ module.exports = {
         ],
       },
       {
-        test: /pages\/.*\.scss$/,
+        test: /(pages|components)\/.*\.scss$/,
         use: getSCSSLoaders({ useCSSModules: true }),
       },
       {

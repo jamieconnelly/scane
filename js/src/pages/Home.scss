@@ -1,0 +1,33 @@
+@import '~scane/styles/variables';
+@import '~scane/styles/mixins';
+
+.sideBar {
+  background: $color-white;
+  width: $sidebar-width;
+  min-height: 100vh;
+  box-shadow: 0 0 1px 1px $border-color;
+}
+
+.linksContainer {
+  padding: $s32;
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    margin-bottom: $s16;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.sideBarHeader {
+  background: $color-biege-400;
+  box-shadow: inset 0 -1px 0 0 $border-color;
+  height: $s104;
+  padding: $s32;
+}

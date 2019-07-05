@@ -20,10 +20,14 @@ interface IRouteProps extends RouteProps {
   isLoggedIn: boolean
 }
 
-const PrivateRoute = ({ isLoggedIn, me, ...props }: IRouteProps) =>
+const PrivateRoute = ({
+  isLoggedIn,
+  me,
+  ...props
+}: IRouteProps & OuterProps<AppQuery, {}>) =>
   isLoggedIn ? (
     <>
-      <Header me={me} />
+      <Header me={me as any} />
       <Route {...props} />
     </>
   ) : (

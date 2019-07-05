@@ -1,7 +1,6 @@
 import React from 'react'
 import { graphql } from 'react-relay'
-import { RouteProps } from 'react-router'
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import { AppQuery } from 'scane/__generated__/AppQuery.graphql'
 import Header from 'scane/components/Header'
@@ -16,27 +15,6 @@ import './styles/styles.scss'
 
 interface IProps extends OuterProps<AppQuery, {}> {}
 
-interface IRouteProps extends RouteProps {
-  isLoggedIn: boolean
-}
-
-const PrivateRoute = ({
-  isLoggedIn,
-  me,
-  ...props
-}: IRouteProps & OuterProps<AppQuery, {}>) =>
-  isLoggedIn ? (
-    <>
-      <Header me={me as any} />
-      <Route {...props} />
-    </>
-  ) : (
-    <Redirect to="/login" />
-  )
-
-const LoginRoute = ({ isLoggedIn, ...props }: IRouteProps) =>
-  isLoggedIn ? <Redirect to="/" /> : <Route {...props} />
-
 const App = (props: IProps) => {
   if (props.relayLoading) {
     return <LoadingPage />
@@ -47,8 +25,14 @@ const App = (props: IProps) => {
   return (
     <Router>
       <Switch>
-        <PrivateRoute me={props.me} isLoggedIn={isLoggedIn} path="/" component={Home} />
-        <LoginRoute isLoggedIn={isLoggedIn} path="/login" component={LoginForm} />
+        {isLoggedIn ? (
+          <>
+            <Header me={props.me as any} />
+            <Route component={Home} path="/" />
+          </>
+        ) : (
+          <Route path="/login" component={LoginForm} />
+        )}
         <Route component={NotFound} />
       </Switch>
     </Router>

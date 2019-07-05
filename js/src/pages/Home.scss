@@ -18,7 +18,7 @@
 
   .sideBarHeader {
     background: $color-biege-400;
-    box-shadow: inset 0 -1px 0 0 $border-color;
+    border-bottom: 2px solid $border-color;
     height: $s104;
     padding: $s32;
   }

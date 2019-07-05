@@ -1,6 +1,8 @@
 import React from 'react'
 import { NavLink, Route, Switch, Redirect } from 'react-router-dom'
 
+import Backlinks from './Backlinks'
+
 import styles from './Home.scss'
 
 const Home = () => (
@@ -24,7 +26,7 @@ const Home = () => (
     </div>
     <div className={styles.content}>
       <Switch>
-        <Route path="/backlinks" component={() => <div>test</div>} />
+        <Route path="/backlinks" component={Backlinks} />
         <Redirect to="/backlinks" />
       </Switch>
     </div>

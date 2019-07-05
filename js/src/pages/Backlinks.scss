@@ -1,0 +1,10 @@
+@import '~scane/styles/variables';
+@import '~scane/styles/mixins';
+
+.container {
+  width: 100%;
+  padding: $s24;
+  background: $color-white;
+  border-radius: $s4;
+  @include card-shadow-border($border-color);
+}

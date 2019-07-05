@@ -43,13 +43,7 @@ const App = (props: IProps) => {
   return (
     <Router>
       <Switch>
-        <PrivateRoute
-          me={props.me}
-          isLoggedIn={isLoggedIn}
-          exact
-          path="/"
-          component={Home}
-        />
+        <PrivateRoute me={props.me} isLoggedIn={isLoggedIn} path="/" component={Home} />
         <LoginRoute isLoggedIn={isLoggedIn} path="/login" component={LoginForm} />
         <Route component={NotFound} />
       </Switch>

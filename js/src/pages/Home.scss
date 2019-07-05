@@ -1,33 +1,45 @@
 @import '~scane/styles/variables';
 @import '~scane/styles/mixins';
 
+.container {
+  display: flex;
+}
+
+.content {
+  width: 100%;
+  padding: $s40;
+}
+
 .sideBar {
   background: $color-white;
   width: $sidebar-width;
   min-height: 100vh;
-  box-shadow: 0 0 1px 1px $border-color;
-}
+  border-right: 2px solid $border-color;
 
-.linksContainer {
-  padding: $s32;
-
-  ul {
-    list-style: none;
-    padding: 0;
+  .sideBarHeader {
+    background: $color-biege-400;
+    box-shadow: inset 0 -1px 0 0 $border-color;
+    height: $s104;
+    padding: $s32;
   }
 
-  li {
-    margin-bottom: $s16;
+  .linksContainer {
+    padding: $s32;
 
-    &:hover {
-      cursor: pointer;
+    a {
+      display: block;
+      margin-bottom: $s16;
+      text-decoration: none;
+      color: $color-biege-primary;
+
+      &:hover {
+        cursor: pointer;
+        color: $color-blue-primary;
+      }
+    }
+
+    .active {
+      color: $color-text-dark;
     }
   }
-}
-
-.sideBarHeader {
-  background: $color-biege-400;
-  box-shadow: inset 0 -1px 0 0 $border-color;
-  height: $s104;
-  padding: $s32;
 }

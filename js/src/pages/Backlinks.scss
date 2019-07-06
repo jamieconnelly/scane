@@ -3,8 +3,30 @@
 
 .container {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: $s24;
   background: $color-white;
   border-radius: $s4;
   @include card-shadow-border($border-color);
+
+  button {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  button:last-of-type {
+    margin-left: $s8;
+  }
+}
+
+.labelWithInput {
+  label,
+  input {
+    display: block;
+    text-align: center;
+    margin-bottom: $s8;
+  }
 }

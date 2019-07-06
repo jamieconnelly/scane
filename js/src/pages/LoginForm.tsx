@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Form, Field } from 'react-final-form'
 
-import { LoginMutationInput } from '__generated__/mutationsLoginMutation.graphql'
-import login from 'scane/mutations'
+import { LoginMutationInput } from '__generated__/LoginMutation.graphql'
+import login from 'scane/mutations/login'
 
 import styles from './LoginForm.scss'
 

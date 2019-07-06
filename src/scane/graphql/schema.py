@@ -48,8 +48,23 @@ class LoginMutation(graphene.relay.ClientIDMutation):
         return cls(me=user)
 
 
+class UploadBacklinkFiles(graphene.ClientIDMutation):
+    class Input:
+        pass
+
+    @classmethod
+    def mutate_and_get_payload(cls, root, info, **input):
+        data = []
+        for file in info.context.FILES.values():
+            target_urls = [url.decode('utf-8') for url in file.read().splitlines()]
+            data.append(target_urls)
+        print(data)
+        return cls()
+
+
 class Mutation(graphene.ObjectType):
     user_login = LoginMutation.Field()
+    upload_backlink_files = UploadBacklinkFiles.Field()
 
 
 schema = graphene.Schema(query=Query, mutation=Mutation)

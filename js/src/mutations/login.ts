@@ -1,15 +1,12 @@
 import { graphql } from 'react-relay'
 
-import {
-  LoginMutationInput,
-  mutationsLoginMutation,
-} from '__generated__/mutationsLoginMutation.graphql'
+import { LoginMutationInput, loginMutation } from '__generated__/loginMutation.graphql'
 import mutationPromise from 'scane/relay/mutationPromise'
 
 const login = (input: LoginMutationInput) =>
-  mutationPromise<mutationsLoginMutation>({
+  mutationPromise<loginMutation>({
     mutation: graphql`
-      mutation mutationsLoginMutation($input: LoginMutationInput!) {
+      mutation loginMutation($input: LoginMutationInput!) {
         userLogin(input: $input) {
           clientMutationId
         }

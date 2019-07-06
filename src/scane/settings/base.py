@@ -16,6 +16,10 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WEBPACK_OUTPUT_DIR = os.path.join(BASE_DIR, 'dj/static/build')
 
+# Do not remove next two lines
+PROJECT_ROOT_DIR = os.path.dirname(os.path.dirname(BASE_DIR))
+JS_DIR = os.path.join(PROJECT_ROOT_DIR, 'js')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 

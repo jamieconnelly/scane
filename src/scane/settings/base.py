@@ -104,3 +104,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (WEBPACK_OUTPUT_DIR,)
+
+AHREFS_EMAIL = os.getenv('AHREFS_EMAIL', 'email@example.com')
+AHREFS_PASSWORD = os.getenv('AHREFS_PASSWORD', 'password')

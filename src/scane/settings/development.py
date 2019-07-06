@@ -12,3 +12,5 @@ DATABASES = {}
 DATABASES['default'] = dj_database_url.parse(
     os.getenv('DATABASE_URL', 'postgres://scaneuser:scanepassword@localhost/scane')
 )
+
+USE_HEADLESS_CHROME = False

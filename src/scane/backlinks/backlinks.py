@@ -147,7 +147,7 @@ def download_files(browser):
         a_tag.click()
 
 
-def get_backlinks(data=None):
+def get_backlinks(data):
     browser = get_browser()
 
     login(browser)

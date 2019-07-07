@@ -24,11 +24,13 @@ const Backlinks = () => {
   }
 
   const [isSubmitting, setSubmitting] = useState(false)
+  const [sucessMessage, setSucessMessage] = useState<null | string>(null)
   const onSubmit = async () => {
     if (fileValues) {
       setSubmitting(true)
       await uploadBacklinkFiles(fileValues)
       setSubmitting(false)
+      setSucessMessage('We have started the download')
     }
   }
 
@@ -46,6 +48,7 @@ const Backlinks = () => {
           Remove files
         </button>
       </div>
+      {sucessMessage}
     </div>
   )
 }

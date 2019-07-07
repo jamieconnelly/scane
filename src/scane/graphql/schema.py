@@ -5,6 +5,8 @@ from graphene.relay import Node
 from graphene_django.types import DjangoObjectType
 from graphql import GraphQLError
 
+from scane.backlinks import tasks
+
 
 class User(DjangoObjectType):
     is_logged_in = graphene.Boolean(required=True)
@@ -56,9 +58,14 @@ class UploadBacklinkFiles(graphene.ClientIDMutation):
     def mutate_and_get_payload(cls, root, info, **input):
         data = []
         for file in info.context.FILES.values():
-            target_urls = [url.decode('utf-8') for url in file.read().splitlines()]
-            data.append(target_urls)
-        print(data)
+            target_urls_dict = {}
+            target_urls_dict[file.name] = [
+                url.decode('utf-8') for url in file.read().splitlines()
+            ]
+            data.append(target_urls_dict)
+
+        tasks.get_backlinks.delay(data)
+
         return cls()
 
 

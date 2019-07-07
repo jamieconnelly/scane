@@ -111,3 +111,10 @@ STATICFILES_DIRS = (WEBPACK_OUTPUT_DIR,)
 
 AHREFS_EMAIL = os.getenv('AHREFS_EMAIL', 'email@example.com')
 AHREFS_PASSWORD = os.getenv('AHREFS_PASSWORD', 'password')
+
+# CELERY
+CELERY_BROKER_URL = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Europe/Copenhagen'

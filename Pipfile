@@ -18,6 +18,7 @@ splinter = "*"
 selenium = "*"
 pandas = "*"
 xlsxwriter = "*"
+redis = "*"
 
 [requires]
 python_version = "3.7"

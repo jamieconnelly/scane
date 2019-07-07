@@ -19,6 +19,7 @@ selenium = "*"
 pandas = "*"
 xlsxwriter = "*"
 redis = "*"
+celery = "*"
 
 [requires]
 python_version = "3.7"

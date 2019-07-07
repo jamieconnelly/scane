@@ -14,3 +14,9 @@ DATABASES['default'] = dj_database_url.parse(
 )
 
 USE_HEADLESS_CHROME = False
+CHROME_DOWNLOADS_DIR = os.getenv(
+    'CHROME_DOWNLOADS_DIR', os.path.join(os.path.abspath(os.getcwd()), 'downloads')
+)
+EXPORTS_DIR = os.getenv(
+    'EXPORTS_DIR', os.path.join(os.path.abspath(os.getcwd()), 'exports')
+)

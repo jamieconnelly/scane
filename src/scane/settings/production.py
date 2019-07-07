@@ -12,6 +12,8 @@ DATABASES = {}
 DATABASES['default'] = dj_database_url.parse(os.getenv('DATABASE_URL'))
 
 USE_HEADLESS_CHROME = True
+CHROME_DOWNLOADS_DIR = '/tmp/downloads'
+EXPORTS_DIR = '/tmp/exports'
 
 LOGGING = (
     {

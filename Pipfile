@@ -16,6 +16,7 @@ dj-database-url = "*"
 psycopg2 = "*"
 splinter = "*"
 selenium = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.7"

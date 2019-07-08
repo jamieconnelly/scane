@@ -24,14 +24,12 @@ const fetchQuery = async (
     if (!window.FormData) {
       throw new Error('Uploading files without `FormData` not supported.')
     }
-    console.log(uploadables)
     const formData = new FormData()
     formData.append('query', operation.text)
     formData.append('variables', JSON.stringify(variables))
 
     Object.keys(uploadables).forEach((key) => {
       if (Object.prototype.hasOwnProperty.call(uploadables, key)) {
-        console.log(uploadables[key])
         formData.append(key, uploadables[key])
       }
     })

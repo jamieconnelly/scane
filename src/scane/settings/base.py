@@ -118,3 +118,13 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Europe/Copenhagen'
+
+# Mailgun
+EMAIL_HOST = os.getenv('MAILGUN_SMTP_SERVER', 'smtp.mailgun.org')
+EMAIL_PORT = os.getenv('MAILGUN_SMTP_PORT', 587)
+EMAIL_HOST_USER = os.getenv('MAILGUN_SMTP_LOGIN', 'mind@mg.bottlenose.co')
+EMAIL_HOST_PASSWORD = os.getenv('MAILGUN_SMTP_PASSWORD', 'mys3cr3tp4ssw0rd')
+EMAIL_USE_TLS = True
+
+DEFAULT_EMAIL_SENDER = os.getenv('DEFAULT_EMAIL_SENDER', 'test@example.com')
+DEFAULT_EMAIL_RECIEVER = os.getenv('DEFAULT_EMAIL_RECIEVER', 'test@example.com')

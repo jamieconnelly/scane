@@ -179,7 +179,10 @@ def get_backlinks(data):
         clear_file_dropdown(browser)
 
         # Explicit sleep to ensure all files are downloaded
-        sleep(60 * 10)
+        logger.info('Sleeping 5 mins to wait on file downloads')
+        sleep(60 * 5)
+
+        logger.info(f'Merging files for topic: {file_name}')
         downloaded_files = glob(f'{settings.CHROME_DOWNLOADS_DIR}/*.csv')
         if len(downloaded_files) > 0:
             make_aggregate_file(downloaded_files, file_name)

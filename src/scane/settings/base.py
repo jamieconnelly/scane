@@ -118,6 +118,7 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Europe/Copenhagen'
+REMAP_SIGTERM = 'SIGQUIT'
 
 # Mailgun
 EMAIL_HOST = os.getenv('MAILGUN_SMTP_SERVER', 'smtp.mailgun.org')

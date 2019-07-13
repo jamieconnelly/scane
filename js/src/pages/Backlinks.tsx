@@ -15,18 +15,18 @@ interface IFormValues {
 const FileInput = ({
   input: { onChange },
 }: FieldRenderProps<string, HTMLInputElement>) => (
-    <Dropzone onDrop={(files) => onChange(files)}>
-      {({ getRootProps, getInputProps, isDragActive }) => (
-        <div {...getRootProps()} className={styles.dropzone}>
-          <input {...getInputProps()} />
-          {isDragActive ? (
-            <p>Drop the files here ...</p>
-          ) : (
-            <p>Drag 'n' drop some files here, or click to select files</p>
-          )}
-        </div>
-      )}
-    </Dropzone>
+  <Dropzone onDrop={(files) => onChange(files)}>
+    {({ getRootProps, getInputProps, isDragActive }) => (
+      <div {...getRootProps()} className={styles.dropzone}>
+        <input {...getInputProps()} />
+        {isDragActive ? (
+          <p>Drop the files here ...</p>
+        ) : (
+          <p>Drag 'n' Drop files here or click to select files</p>
+        )}
+      </div>
+    )}
+  </Dropzone>
 )
 
 const Backlinks = () => {
@@ -40,7 +40,7 @@ const Backlinks = () => {
       })
       await uploadBacklinkFiles(files)
       setSucessMessage(
-        'We are now fetching the backlinks. You will receive an email with the results shortly.',
+        'We are fetching the backlinks, you will receive an email with the results shortly.',
       )
     } catch (e) {
       return { [FORM_ERROR]: `Upload failed: ${e.message}` }
@@ -60,9 +60,13 @@ const Backlinks = () => {
           >
             {sucessMessage && <div className={styles.success}>{sucessMessage}</div>}
             <Field name="files" component={FileInput} />
-            <div className={styles.fileNames}>
-              {values.files && values.files.map((f) => <p key={f.name}>{f.name}</p>)}
-            </div>
+            {values.files && (
+              <div className={styles.fileNames}>
+                {values.files.map((f, i) => (
+                  <p key={f.name}>{`${i + 1}. ${f.name}`}</p>
+                ))}
+              </div>
+            )}
             <div className={styles.buttons}>
               <Button type="submit" disabled={submitting || pristine || !values.files}>
                 Upload files

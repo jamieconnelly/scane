@@ -42,6 +42,7 @@
 }
 
 .dropzone {
+  min-width: 300px;
   padding: $s16;
   border: 1px solid $border-color;
   border-radius: $s4;
@@ -49,6 +50,12 @@
   margin-bottom: $s8;
   text-align: center;
   font-size: $fs-xs;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $color-grey-10;
+    color: $color-blue-primary;
+  }
 }
 
 .buttons {
@@ -58,4 +65,5 @@
 
 .fileNames {
   margin-bottom: $s8;
+  font-size: $fs-xs;
 }

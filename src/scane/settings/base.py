@@ -129,3 +129,4 @@ EMAIL_USE_TLS = True
 
 DEFAULT_EMAIL_SENDER = os.getenv('DEFAULT_EMAIL_SENDER', 'test@example.com')
 DEFAULT_EMAIL_RECIEVER = os.getenv('DEFAULT_EMAIL_RECIEVER', 'test@example.com')
+REPLY_TO_EMAIL = os.getenv('REPLY_TO_EMAIL', 'test@example.com')

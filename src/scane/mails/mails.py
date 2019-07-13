@@ -12,8 +12,14 @@ def send_export_email():
 
     email = EmailMessage()
     email.subject = 'Here is your export!'
-    email.body = 'Exports attached'
+    email.body = (
+        'Hi there 👋,\n\n'
+        'We have attached your backlink export results to this email.\n\n'
+        'Best,\n'
+        'Scane'
+    )
     email.from_email = settings.DEFAULT_EMAIL_SENDER
+    email.reply_to = settings.REPLY_TO_EMAIL
     email.to = [settings.DEFAULT_EMAIL_RECIEVER]
 
     exports = shutil.make_archive('exports', 'zip', settings.EXPORTS_DIR)

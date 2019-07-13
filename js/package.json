@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.4.4",
+    "@babel/preset-react": "^7.0.0",
     "autoprefixer": "^9.6.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-relay": "^5.0.0",
@@ -16,6 +19,7 @@
     "postcss-loader": "^3.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-dropzone": "^10.1.5",
     "react-final-form": "^6.3.0",
     "react-relay": "^5.0.0",
     "react-router-dom": "^5.0.1",
@@ -29,10 +33,7 @@
     "webpack": "^4.35.0",
     "webpack-cli": "^3.3.4",
     "webpack-dev-server": "^3.7.2",
-    "webpack-merge": "^4.2.1",
-    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@babel/plugin-transform-modules-commonjs": "^7.4.4",
-    "@babel/preset-react": "^7.0.0"
+    "webpack-merge": "^4.2.1"
   },
   "devDependencies": {
     "@types/graphql": "^14.2.2",

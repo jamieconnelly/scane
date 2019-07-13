@@ -3,9 +3,11 @@ import { graphql } from 'react-relay'
 import { uploadBacklinkFilesMutation } from '__generated__/uploadBacklinkFilesMutation.graphql'
 import mutationPromise from 'scane/relay/mutationPromise'
 
-type Uploadables = { [key: string]: File }
+export interface IUploadables {
+  [key: string]: File
+}
 
-const uploadBacklinkTargetFiles = (uploadables: Uploadables) =>
+const uploadBacklinkTargetFiles = (uploadables: IUploadables) =>
   mutationPromise<uploadBacklinkFilesMutation>({
     mutation: graphql`
       mutation uploadBacklinkFilesMutation($input: UploadBacklinkFilesInput!) {

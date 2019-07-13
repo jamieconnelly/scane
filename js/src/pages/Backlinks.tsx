@@ -1,54 +1,85 @@
 import React, { useState } from 'react'
+import Dropzone from 'react-dropzone'
+import { Form, Field, FieldRenderProps } from 'react-final-form'
+import { FORM_ERROR } from 'final-form'
 
-import uploadBacklinkFiles from 'scane/mutations/uploadBacklinkFiles'
+import uploadBacklinkFiles, { IUploadables } from 'scane/mutations/uploadBacklinkFiles'
 
 import styles from './Backlinks.scss'
 
-type FileValues = { [key: string]: File }
+interface IFormValues {
+  files: File[]
+}
+
+const FileInput = ({
+  input: { onChange },
+}: FieldRenderProps<string, HTMLInputElement>) => (
+  <Dropzone onDrop={(files) => onChange(files)}>
+    {({ getRootProps, getInputProps, isDragActive }) => (
+      <section>
+        <div {...getRootProps()}>
+          <input {...getInputProps()} />
+          {isDragActive ? (
+            <p>Drop the files here ...</p>
+          ) : (
+            <p>Drag 'n' drop some files here, or click to select files</p>
+          )}
+        </div>
+      </section>
+    )}
+  </Dropzone>
+)
 
 const Backlinks = () => {
-  const [fileValues, setFileValues] = useState<null | FileValues>(null)
-  const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    let files: FileValues = {}
-    Array.from(evt.target.files as FileList).forEach((file, idx) => {
-      files[`file-${idx}`] = file
-    })
-    setFileValues(files)
-  }
+  const [sucessMessage, setSucessMessage] = useState()
 
-  const [inputKey, setInputKey] = useState<undefined | string>(undefined)
-  const onRemoveFiles = () => {
-    setFileValues(null)
-    // force input to re-render clearing the input values
-    setInputKey(Math.random().toString(36))
-  }
-
-  const [isSubmitting, setSubmitting] = useState(false)
-  const [sucessMessage, setSucessMessage] = useState<null | string>(null)
-  const onSubmit = async () => {
-    if (fileValues) {
-      setSubmitting(true)
-      await uploadBacklinkFiles(fileValues)
-      setSubmitting(false)
-      setSucessMessage('We have started the download')
+  const onSubmit = async (values: IFormValues) => {
+    try {
+      let files: IUploadables = {}
+      Array.from(values.files).forEach((file, idx) => {
+        files[`file-${idx}`] = file
+      })
+      await uploadBacklinkFiles(files)
+      setSucessMessage(
+        'We are now fetching the backlinks. You will receive an email with the results shortly.',
+      )
+    } catch (e) {
+      return { [FORM_ERROR]: `Upload failed: ${e.message}` }
     }
   }
 
   return (
     <div className={styles.container}>
-      <div className={styles.labelWithInput}>
-        <label htmlFor="files">Select one or more files</label>
-        <input key={inputKey} name="files" onChange={onChange} multiple type="file" />
-      </div>
-      <div>
-        <button onClick={onSubmit} disabled={!fileValues || isSubmitting}>
-          Upload
-        </button>
-        <button onClick={onRemoveFiles} disabled={!fileValues}>
-          Remove files
-        </button>
-      </div>
       {sucessMessage}
+      <Form
+        onSubmit={onSubmit}
+        render={({ form, handleSubmit, submitting, pristine, values, submitError }) => (
+          <form
+            onSubmit={async (evt) => {
+              await handleSubmit(evt)
+              form.reset()
+            }}
+            className={styles.loginForm}
+          >
+            <div className={styles.labelWithInput}>
+              <h3>Select one or more files</h3>
+              <Field name="files" component={FileInput} />
+            </div>
+            <div>
+              {values.files && values.files.map((f) => <p key={f.name}>{f.name}</p>)}
+            </div>
+            <div>
+              <button type="submit" disabled={submitting || pristine || !values.files}>
+                Upload files
+              </button>
+              <button onClick={form.reset} disabled={!values.files}>
+                Remove files
+              </button>
+            </div>
+            {submitError && <div className={styles.error}>{submitError}</div>}
+          </form>
+        )}
+      />
     </div>
   )
 }

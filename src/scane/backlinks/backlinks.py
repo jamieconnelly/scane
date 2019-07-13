@@ -103,11 +103,10 @@ def login(browser):
 
 def export_link_data(browser):
     browser.find_by_id('export_button').first.click()
-    sleep(1)
-
-    if browser.find_by_id('CSVExportModalDialog').first.visible:
-        browser.find_by_id('start_full_export').first.click()
-        browser.find_by_id('start_export_button').first.click()
+    # Ahrefs have implemented a delay to prevent automated exports
+    sleep(15)
+    browser.find_by_id('start_full_export').first.click()
+    browser.find_by_id('start_export_button').first.click()
 
 
 def clear_file_dropdown(browser):
@@ -121,6 +120,7 @@ def open_notifications(browser):
     # `a` tags in order to download them
     browser.find_by_id('top_notifications').mouse_over()
     browser.find_by_id('top_notifications').first.click()
+    assert browser.is_element_present_by_id('removeAllExportedFiles', wait_time=5)
 
 
 def download_files(browser):
@@ -133,14 +133,14 @@ def download_files(browser):
     total_wait_time = 0
     should_wait = browser.is_text_present('processing')
     while should_wait:
-        if total_wait_time >= 5 * 12 * 10:
-            # Some exports hang so wait a max of 10 mins
+        if total_wait_time >= 60 * 10:
+            # Some exports hang so wait a max of 10 minutes
             should_wait = False
         else:
             should_wait = browser.is_text_present('processing')
             if should_wait:
                 logger.info(
-                    f'Backlinks still processing: (total wait time {total_wait_time}, max wait time: 10mins)'
+                    f'Backlinks still processing: (waited {total_wait_time}/max 600 seconds)'
                 )
                 total_wait_time += 5
                 sleep(5)
@@ -180,13 +180,30 @@ def get_backlinks(data):
         download_files(browser)
         clear_file_dropdown(browser)
 
-        # Explicit sleep to ensure all files are downloaded
-        sleep_time = 60 * 3
-        logger.info(f'Sleeping {sleep_time} seconds to wait on file downloads')
-        sleep(sleep_time)
+        downloaded_files = glob(f'{settings.CHROME_DOWNLOADS_DIR}/*.csv')
+        num_input_files = len(file[file_name])
+
+        # Wait for all exports to be finished downloading
+        total_wait_time = 0
+        should_wait = len(downloaded_files) < num_input_files
+        while should_wait:
+            if total_wait_time >= 300:
+                # Wait a max of 5 mins for file downloads
+                should_wait = False
+            else:
+                downloaded_files = glob(f'{settings.CHROME_DOWNLOADS_DIR}/*.csv')
+                should_wait = len(downloaded_files) < num_input_files
+                if should_wait:
+                    logger.info(
+                        f'Downloaded {len(downloaded_files)}/{num_input_files} files'
+                    )
+                    logger.info(
+                        f'Total wait time {total_wait_time}, max wait time: 300 seconds'
+                    )
+                    total_wait_time += 5
+                    sleep(5)
 
         logger.info(f'Merging files for topic: {file_name}')
-        downloaded_files = glob(f'{settings.CHROME_DOWNLOADS_DIR}/*.csv')
         if len(downloaded_files) > 0:
             make_aggregate_file(downloaded_files, file_name)
 

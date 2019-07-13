@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Form, Field } from 'react-final-form'
+import { FORM_ERROR } from 'final-form'
 
 import { LoginMutationInput } from '__generated__/LoginMutation.graphql'
 import login from 'scane/mutations/login'
@@ -7,14 +8,12 @@ import login from 'scane/mutations/login'
 import styles from './LoginForm.scss'
 
 const LoginForm = () => {
-  const [error, setError] = useState()
-
   const onSubmit = async (values: LoginMutationInput) => {
     try {
       await login(values)
       window.location.href = '/'
     } catch (e) {
-      setError(e.message)
+      return { [FORM_ERROR]: `Login failed: ${e.message}` }
     }
   }
 
@@ -22,7 +21,7 @@ const LoginForm = () => {
     <div className={styles.container}>
       <Form
         onSubmit={onSubmit}
-        render={({ handleSubmit, submitting, pristine }) => (
+        render={({ handleSubmit, submitting, pristine, submitError }) => (
           <form onSubmit={handleSubmit} className={styles.loginForm}>
             <h3>Login to your account</h3>
             <Field
@@ -42,7 +41,7 @@ const LoginForm = () => {
             <button type="submit" disabled={submitting || pristine}>
               Login
             </button>
-            {error && <div className={styles.error}>{error}</div>}
+            {submitError && <div className={styles.error}>{submitError}</div>}
           </form>
         )}
       />

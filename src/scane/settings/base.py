@@ -113,7 +113,7 @@ AHREFS_EMAIL = os.getenv('AHREFS_EMAIL', 'email@example.com')
 AHREFS_PASSWORD = os.getenv('AHREFS_PASSWORD', 'password')
 
 # CELERY
-CELERY_BROKER_URL = os.getenv('REDIS_URL', 'redis://localhost:6379')
+CELERY_BROKER_URL = os.getenv('CLOUDAMQP_URL', 'amqp://guest:guest@localhost:5672')
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'

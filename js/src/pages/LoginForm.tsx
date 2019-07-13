@@ -3,6 +3,7 @@ import { Form, Field } from 'react-final-form'
 import { FORM_ERROR } from 'final-form'
 
 import { LoginMutationInput } from '__generated__/LoginMutation.graphql'
+import Button from 'scane/components/Button'
 import login from 'scane/mutations/login'
 
 import styles from './LoginForm.scss'
@@ -38,9 +39,9 @@ const LoginForm = () => {
               type="password"
               required
             />
-            <button type="submit" disabled={submitting || pristine}>
+            <Button type="submit" disabled={submitting || pristine}>
               Login
-            </button>
+            </Button>
             {submitError && <div className={styles.error}>{submitError}</div>}
           </form>
         )}

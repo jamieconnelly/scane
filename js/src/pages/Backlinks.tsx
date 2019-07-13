@@ -3,6 +3,7 @@ import Dropzone from 'react-dropzone'
 import { Form, Field, FieldRenderProps } from 'react-final-form'
 import { FORM_ERROR } from 'final-form'
 
+import Button from 'scane/components/Button'
 import uploadBacklinkFiles, { IUploadables } from 'scane/mutations/uploadBacklinkFiles'
 
 import styles from './Backlinks.scss'
@@ -14,18 +15,18 @@ interface IFormValues {
 const FileInput = ({
   input: { onChange },
 }: FieldRenderProps<string, HTMLInputElement>) => (
-  <Dropzone onDrop={(files) => onChange(files)}>
-    {({ getRootProps, getInputProps, isDragActive }) => (
-      <div {...getRootProps()} className={styles.dropzone}>
-        <input {...getInputProps()} />
-        {isDragActive ? (
-          <p>Drop the files here ...</p>
-        ) : (
-          <p>Drag 'n' drop some files here, or click to select files</p>
-        )}
-      </div>
-    )}
-  </Dropzone>
+    <Dropzone onDrop={(files) => onChange(files)}>
+      {({ getRootProps, getInputProps, isDragActive }) => (
+        <div {...getRootProps()} className={styles.dropzone}>
+          <input {...getInputProps()} />
+          {isDragActive ? (
+            <p>Drop the files here ...</p>
+          ) : (
+            <p>Drag 'n' drop some files here, or click to select files</p>
+          )}
+        </div>
+      )}
+    </Dropzone>
 )
 
 const Backlinks = () => {
@@ -63,12 +64,12 @@ const Backlinks = () => {
               {values.files && values.files.map((f) => <p key={f.name}>{f.name}</p>)}
             </div>
             <div className={styles.buttons}>
-              <button type="submit" disabled={submitting || pristine || !values.files}>
+              <Button type="submit" disabled={submitting || pristine || !values.files}>
                 Upload files
-              </button>
-              <button onClick={form.reset} disabled={!values.files}>
+              </Button>
+              <Button onClick={form.reset} disabled={!values.files}>
                 Remove files
-              </button>
+              </Button>
             </div>
             {submitError && <div className={styles.error}>{submitError}</div>}
           </form>

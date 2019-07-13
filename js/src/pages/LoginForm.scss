@@ -38,23 +38,6 @@
     margin-bottom: $s24;
   }
 
-  button {
-    width: 100%;
-    border: 1px solid $border-color;
-    box-shadow: $button-shadow;
-    border-radius: $s4;
-    padding: $s8;
-    line-height: 1.5;
-    font-size: $fs-s;
-    background-color: $color-blue-primary;
-    color: $color-white;
-
-    &:hover {
-      cursor: pointer;
-      background-color: $color-blue-400;
-    }
-  }
-
   input {
     width: 100%;
     box-sizing: border-box;

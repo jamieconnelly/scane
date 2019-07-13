@@ -16,16 +16,14 @@ const FileInput = ({
 }: FieldRenderProps<string, HTMLInputElement>) => (
   <Dropzone onDrop={(files) => onChange(files)}>
     {({ getRootProps, getInputProps, isDragActive }) => (
-      <section>
-        <div {...getRootProps()}>
-          <input {...getInputProps()} />
-          {isDragActive ? (
-            <p>Drop the files here ...</p>
-          ) : (
-            <p>Drag 'n' drop some files here, or click to select files</p>
-          )}
-        </div>
-      </section>
+      <div {...getRootProps()} className={styles.dropzone}>
+        <input {...getInputProps()} />
+        {isDragActive ? (
+          <p>Drop the files here ...</p>
+        ) : (
+          <p>Drag 'n' drop some files here, or click to select files</p>
+        )}
+      </div>
     )}
   </Dropzone>
 )
@@ -50,7 +48,6 @@ const Backlinks = () => {
 
   return (
     <div className={styles.container}>
-      {sucessMessage}
       <Form
         onSubmit={onSubmit}
         render={({ form, handleSubmit, submitting, pristine, values, submitError }) => (
@@ -59,16 +56,13 @@ const Backlinks = () => {
               await handleSubmit(evt)
               form.reset()
             }}
-            className={styles.loginForm}
           >
-            <div className={styles.labelWithInput}>
-              <h3>Select one or more files</h3>
-              <Field name="files" component={FileInput} />
-            </div>
-            <div>
+            {sucessMessage && <div className={styles.success}>{sucessMessage}</div>}
+            <Field name="files" component={FileInput} />
+            <div className={styles.fileNames}>
               {values.files && values.files.map((f) => <p key={f.name}>{f.name}</p>)}
             </div>
-            <div>
+            <div className={styles.buttons}>
               <button type="submit" disabled={submitting || pristine || !values.files}>
                 Upload files
               </button>

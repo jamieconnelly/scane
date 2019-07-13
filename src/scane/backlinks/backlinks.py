@@ -6,7 +6,6 @@ from time import sleep
 
 from django.conf import settings
 import pandas as pd
-from scane.mails import mails
 from selenium.webdriver.chrome.options import Options
 from splinter import Browser
 
@@ -190,5 +189,3 @@ def get_backlinks(data):
             # Remove all files from the downloads dir
             for f in downloaded_files:
                 os.remove(f)
-
-    mails.send_export_email()

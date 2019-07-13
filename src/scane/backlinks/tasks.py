@@ -1,5 +1,7 @@
 from celery import task
 
+from scane.mails import mails
+
 from . import backlinks as backlinks_helpers
 
 
@@ -12,3 +14,4 @@ from . import backlinks as backlinks_helpers
 )
 def get_backlinks(data):
     backlinks_helpers.get_backlinks(data)
+    mails.send_export_email()

@@ -139,6 +139,9 @@ def download_files(browser):
         else:
             should_wait = browser.is_text_present('processing')
             if should_wait:
+                logger.info(
+                    f'Backlinks still processing: (total wait time {total_wait_time}, max wait time: 10mins)'
+                )
                 total_wait_time += 5
                 sleep(5)
 
@@ -178,8 +181,9 @@ def get_backlinks(data):
         clear_file_dropdown(browser)
 
         # Explicit sleep to ensure all files are downloaded
-        logger.info('Sleeping 5 mins to wait on file downloads')
-        sleep(60 * 3)
+        sleep_time = 60 * 3
+        logger.info(f'Sleeping {sleep_time} seconds to wait on file downloads')
+        sleep(sleep_time)
 
         logger.info(f'Merging files for topic: {file_name}')
         downloaded_files = glob(f'{settings.CHROME_DOWNLOADS_DIR}/*.csv')

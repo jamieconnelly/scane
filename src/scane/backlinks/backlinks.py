@@ -45,10 +45,14 @@ def concatenate_files(files):
     df_list = []
     for file in files:
         try:
-            df = pd.read_csv(file, encoding='utf-8')
+            df = pd.read_csv(
+                file, encoding='utf-8', quotechar='"', skipinitialspace=True
+            )
             df_list.append(df)
         except UnicodeDecodeError:
-            df = pd.read_csv(file, encoding='utf-16')
+            df = pd.read_csv(
+                file, encoding='utf-16', quotechar='"', skipinitialspace=True
+            )
             df_list.append(df)
         except UnicodeError:
             logger.error(f'Corrupt file: {file}')

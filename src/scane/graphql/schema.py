@@ -56,15 +56,15 @@ class UploadBacklinkFiles(graphene.ClientIDMutation):
 
     @classmethod
     def mutate_and_get_payload(cls, root, info, **input):
-        data = []
-        for file in info.context.FILES.values():
-            target_urls_dict = {}
-            target_urls_dict[file.name] = [
-                url.decode('utf-8') for url in file.read().splitlines()
-            ]
-            data.append(target_urls_dict)
+        if len(info.context.FILES) > 1:
+            raise GraphQLError('Cannot upload multiple files')
 
-        tasks.get_backlinks.delay(data)
+        file_name, file = info.context.FILES.popitem()
+        target_urls_dict = {}
+        target_urls_dict[file_name] = [
+            url.decode('utf-8') for url in file[0].read().splitlines()
+        ]
+        tasks.get_backlinks.delay(target_urls_dict)
 
         return cls()
 

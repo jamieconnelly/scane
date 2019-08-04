@@ -4,25 +4,25 @@ import { Form, Field, FieldRenderProps } from 'react-final-form'
 import { FORM_ERROR } from 'final-form'
 
 import Button from 'scane/components/Button'
-import uploadBacklinkFiles, { IUploadables } from 'scane/mutations/uploadBacklinkFiles'
+import uploadBacklinkFiles from 'scane/mutations/uploadBacklinkFiles'
 
 import styles from './Backlinks.scss'
 
 interface IFormValues {
-  files: File[]
+  file: File[]
 }
 
 const FileInput = ({
   input: { onChange },
 }: FieldRenderProps<string, HTMLInputElement>) => (
-  <Dropzone onDrop={(files) => onChange(files)}>
+  <Dropzone multiple={false} onDrop={(file) => onChange(file)}>
     {({ getRootProps, getInputProps, isDragActive }) => (
       <div {...getRootProps()} className={styles.dropzone}>
         <input {...getInputProps()} />
         {isDragActive ? (
-          <p>Drop the files here ...</p>
+          <p>Drop file here ...</p>
         ) : (
-          <p>Drag 'n' Drop files here or click to select files</p>
+          <p>Drag 'n' Drop file here or click to select file</p>
         )}
       </div>
     )}
@@ -34,11 +34,8 @@ const Backlinks = () => {
 
   const onSubmit = async (values: IFormValues) => {
     try {
-      let files: IUploadables = {}
-      Array.from(values.files).forEach((file, idx) => {
-        files[`file-${idx}`] = file
-      })
-      await uploadBacklinkFiles(files)
+      const file = values.file[0]
+      await uploadBacklinkFiles({ [file.name]: file })
       setSucessMessage(
         'We are fetching the backlinks, you will receive an email with the results shortly.',
       )
@@ -53,26 +50,25 @@ const Backlinks = () => {
         onSubmit={onSubmit}
         render={({ form, handleSubmit, submitting, pristine, values, submitError }) => (
           <form
+            className={styles.form}
             onSubmit={async (evt) => {
               await handleSubmit(evt)
               form.reset()
             }}
           >
             {sucessMessage && <div className={styles.success}>{sucessMessage}</div>}
-            <Field name="files" component={FileInput} />
-            {values.files && (
+            <Field name="file" component={FileInput} />
+            {values.file && (
               <div className={styles.fileNames}>
-                {values.files.map((f, i) => (
-                  <p key={f.name}>{`${i + 1}. ${f.name}`}</p>
-                ))}
+                <p>{values.file[0].name}</p>
               </div>
             )}
             <div className={styles.buttons}>
-              <Button type="submit" disabled={submitting || pristine || !values.files}>
-                Upload files
+              <Button type="submit" disabled={submitting || pristine || !values.file}>
+                Upload file
               </Button>
-              <Button onClick={form.reset} disabled={!values.files}>
-                Remove files
+              <Button onClick={form.reset} disabled={!values.file}>
+                Remove file
               </Button>
             </div>
             {submitError && <div className={styles.error}>{submitError}</div>}

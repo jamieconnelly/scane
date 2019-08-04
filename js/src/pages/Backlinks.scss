@@ -42,7 +42,6 @@
 }
 
 .dropzone {
-  min-width: 475px;
   padding: $s16;
   border: 1px solid $border-color;
   border-radius: $s4;
@@ -66,4 +65,8 @@
 .fileNames {
   margin-bottom: $s8;
   font-size: $fs-xs;
+}
+
+.form {
+  min-width: 475px;
 }

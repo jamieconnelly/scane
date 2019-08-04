@@ -154,7 +154,7 @@ def download_files(browser):
         a_tag.click()
 
 
-def get_backlinks(data):
+def get_backlinks(file):
     browser = get_browser()
 
     login(browser)
@@ -162,55 +162,54 @@ def get_backlinks(data):
     open_notifications(browser)
     clear_file_dropdown(browser)
 
-    for i, file in enumerate(data):
-        file_name = list(file.keys())[0]
-        logger.info(f'processing file: {file_name}')
+    file_name = list(file.keys())[0]
+    logger.info(f'processing file: {file_name}')
 
-        for j, target_url in enumerate(file[file_name]):
-            logger.info(f'processing target_url: {target_url}')
+    for j, target_url in enumerate(file[file_name]):
+        logger.info(f'processing target_url: {target_url}')
 
-            browser.visit(
-                f'https://ahrefs.com/site-explorer/backlinks/v7/external-similar-links/subdomains/live/en/all/dofollow/1/ahrefs_rank_desc?target={target_url}'
-            )
-            export_link_data(browser)
+        browser.visit(
+            f'https://ahrefs.com/site-explorer/backlinks/v7/external-similar-links/subdomains/live/en/all/dofollow/1/ahrefs_rank_desc?target={target_url}'
+        )
+        export_link_data(browser)
 
-            # Export 100 files, download them, clean up, continue
-            if j > 0 and j % 100 == 0:
-                logger.info(f'downloading batch: {j + 1}')
-                download_files(browser)
-                clear_file_dropdown(browser)
+        # Export 100 files, download them, clean up, continue
+        if j > 0 and j % 100 == 0:
+            logger.info(f'downloading batch: {j + 1}')
+            download_files(browser)
+            clear_file_dropdown(browser)
 
-        # Download any of the leftovers
-        download_files(browser)
-        clear_file_dropdown(browser)
+    # Download any of the leftovers
+    download_files(browser)
+    clear_file_dropdown(browser)
 
-        downloaded_files = glob(f'{settings.CHROME_DOWNLOADS_DIR}/*.csv')
-        num_input_files = len(file[file_name])
+    downloaded_files = glob(f'{settings.CHROME_DOWNLOADS_DIR}/*.csv')
+    num_input_files = len(file[file_name])
 
-        # Wait for all exports to be finished downloading
-        total_wait_time = 0
-        should_wait = len(downloaded_files) < num_input_files
-        while should_wait:
-            if total_wait_time >= 300:
-                # Wait a max of 5 mins for file downloads
-                should_wait = False
-            else:
-                downloaded_files = glob(f'{settings.CHROME_DOWNLOADS_DIR}/*.csv')
-                should_wait = len(downloaded_files) < num_input_files
-                if should_wait:
-                    logger.info(
-                        f'Downloaded {len(downloaded_files)}/{num_input_files} files'
-                    )
-                    logger.info(
-                        f'Total wait time {total_wait_time}, max wait time: 300 seconds'
-                    )
-                    total_wait_time += 5
-                    sleep(5)
+    # Wait for all exports to be finished downloading
+    total_wait_time = 0
+    should_wait = len(downloaded_files) < num_input_files
+    while should_wait:
+        if total_wait_time >= 300:
+            # Wait a max of 5 mins for file downloads
+            should_wait = False
+        else:
+            downloaded_files = glob(f'{settings.CHROME_DOWNLOADS_DIR}/*.csv')
+            should_wait = len(downloaded_files) < num_input_files
+            if should_wait:
+                logger.info(
+                    f'Downloaded {len(downloaded_files)}/{num_input_files} files'
+                )
+                logger.info(
+                    f'Total wait time {total_wait_time}, max wait time: 300 seconds'
+                )
+                total_wait_time += 5
+                sleep(5)
 
-        logger.info(f'Merging files for topic: {file_name}')
-        if len(downloaded_files) > 0:
-            make_aggregate_file(downloaded_files, file_name)
+    logger.info(f'Merging files for topic: {file_name}')
+    if len(downloaded_files) > 0:
+        make_aggregate_file(downloaded_files, file_name)
 
-            # Remove all files from the downloads dir
-            for f in downloaded_files:
-                os.remove(f)
+        # Remove all files from the downloads dir
+        for f in downloaded_files:
+            os.remove(f)

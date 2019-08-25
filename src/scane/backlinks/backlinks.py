@@ -162,10 +162,10 @@ def get_backlinks(file):
     open_notifications(browser)
     clear_file_dropdown(browser)
 
-    file_name = list(file.keys())[0]
+    file_name = file[0]
     logger.info(f'processing file: {file_name}')
 
-    for j, target_url in enumerate(file[file_name]):
+    for i, target_url in enumerate(file[1]):
         logger.info(f'processing target_url: {target_url}')
 
         browser.visit(
@@ -174,8 +174,8 @@ def get_backlinks(file):
         export_link_data(browser)
 
         # Export 100 files, download them, clean up, continue
-        if j > 0 and j % 100 == 0:
-            logger.info(f'downloading batch: {j + 1}')
+        if i > 0 and i % 100 == 0:
+            logger.info(f'downloading batch: {i + 1}')
             download_files(browser)
             clear_file_dropdown(browser)
 

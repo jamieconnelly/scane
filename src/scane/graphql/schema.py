@@ -59,12 +59,21 @@ class UploadBacklinkFiles(graphene.ClientIDMutation):
         if len(info.context.FILES) > 1:
             raise GraphQLError('Cannot upload multiple files')
 
-        file_name, file = info.context.FILES.popitem()
-        target_urls_dict = {}
-        target_urls_dict[file_name] = [
-            url.decode('utf-8') for url in file[0].read().splitlines()
-        ]
-        tasks.get_backlinks.delay(target_urls_dict)
+        name, file = info.context.FILES.popitem()
+        urls = [url.decode('utf-8') for url in file[0].read().splitlines()]
+
+        chunk_size = 450
+        file_name_urls = []
+        for i in range(0, len(urls), chunk_size):
+            file_name = name if i == 0 else f'input_{int(i/chunk_size)}_{name}'
+            file_name_urls.append((file_name, urls[i : i + chunk_size]))
+
+        if len(file_name_urls) > 1:
+            from scane.mails import mails
+
+            mails.send_chunked_txt_files(file_name_urls[1:])
+
+        tasks.get_backlinks.delay(file_name_urls[0])
 
         return cls()
 

@@ -25,8 +25,8 @@ def send_export_email():
 
     exports = shutil.make_archive('exports', 'zip', settings.EXPORTS_DIR)
     email.attach_file(exports)
-
     email.send()
+    shutil.rmtree(settings.EXPORTS_DIR)
 
 
 def send_chunked_txt_files(data):
@@ -37,7 +37,7 @@ def send_chunked_txt_files(data):
     email.body = (
         'Hi there 👋,\n\n'
         'Unfortunately we can only process 450 urls per day.'
-        'We have began processing the first 450 urls and have'
+        ' We have began processing the first 450 urls and have'
         ' split the remaining urls into seperate txt files each'
         ' containing 450 urls or less. Please come back in 24'
         ' hours and upload the next file.\n\n'

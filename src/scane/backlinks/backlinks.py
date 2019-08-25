@@ -184,21 +184,21 @@ def get_backlinks(file):
     clear_file_dropdown(browser)
 
     downloaded_files = glob(f'{settings.CHROME_DOWNLOADS_DIR}/*.csv')
-    num_input_files = len(file[file_name])
+    num_input_urls = len(file[1])
 
     # Wait for all exports to be finished downloading
     total_wait_time = 0
-    should_wait = len(downloaded_files) < num_input_files
+    should_wait = len(downloaded_files) < num_input_urls
     while should_wait:
         if total_wait_time >= 300:
             # Wait a max of 5 mins for file downloads
             should_wait = False
         else:
             downloaded_files = glob(f'{settings.CHROME_DOWNLOADS_DIR}/*.csv')
-            should_wait = len(downloaded_files) < num_input_files
+            should_wait = len(downloaded_files) < num_input_urls
             if should_wait:
                 logger.info(
-                    f'Downloaded {len(downloaded_files)}/{num_input_files} files'
+                    f'Downloaded {len(downloaded_files)}/{num_input_urls} files'
                 )
                 logger.info(
                     f'Total wait time {total_wait_time}, max wait time: 300 seconds'
@@ -213,3 +213,5 @@ def get_backlinks(file):
         # Remove all files from the downloads dir
         for f in downloaded_files:
             os.remove(f)
+
+    browser.quit()
